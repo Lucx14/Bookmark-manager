@@ -14,6 +14,7 @@ class Bookmark
 
 
   def self.create(url, title)
+    return false unless is_url?(url)
     if ENV['ENVIRONMENT'] == 'test'
       connection = PG.connect(dbname: 'bookmark_manager_test')
     else
@@ -25,6 +26,14 @@ class Bookmark
   end
 
 
+
+
+
+  private
+
+  def self.is_url?(url)
+    url =~ /\A#{URI::regexp(['http', 'https'])}\z/
+  end
 
 
 
