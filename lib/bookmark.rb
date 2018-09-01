@@ -48,6 +48,20 @@ class Bookmark
   end
 
 
+  def self.find(id)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      connection = PG.connect(dbname: 'bookmark_manager')
+    end
+    result = connection.exec("SELECT * FROM bookmarks WHERE id = #{id};")
+    Bookmark.new(result[0]['id'], result[0]['url'], result[0]['title'])
+  end
+
+
+  
+
+
 
 
   attr_reader :id, :url, :title
