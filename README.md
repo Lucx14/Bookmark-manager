@@ -4,6 +4,16 @@ A web app that can store web bookmarks in a database as a collection of URL's. w
 
 Using Ruby and sinatra as a framework to build a web app based on model view controller and using postgreSQL as a database.
 
+
+```
+╔════════════╗         .all         ╔════════════╗  SELECT * FROM bookmarks; ╔════════════╗
+║            ║--------------------->║            ║-------------------------->║            ║
+║ Controller ║ [array of bookmarks] ║  Bookmark  ║      {result object}      ║  Database  ║
+║            ║<---------------------║            ║<--------------------------║            ║
+╚════════════╝                      ╚════════════╝                           ╚════════════╝
+```
+
+
 the website can meet the following requirements
 
 - show a list of bookmarks

@@ -9,9 +9,10 @@ class Bookmark
       connection = PG.connect(dbname: 'bookmark_manager')
     end
     result = connection.exec('SELECT * FROM bookmarks')
-    result.map {|bookmark| bookmark['url']}
+    result.map do |bookmark|
+      Bookmark.new(bookmark["id"], bookmark["url"], bookmark["title"])
+    end
   end
-
 
   def self.create(url, title)
     return false unless is_url?(url)
@@ -20,13 +21,18 @@ class Bookmark
     else
       connection = PG.connect(dbname: 'bookmark_manager')
     end
-
-    connection.exec("INSERT INTO bookmarks (url, title) VALUES ('#{url}', '#{title}');")
-
+    result = connection.exec("INSERT INTO bookmarks (url, title) VALUES ('#{url}', '#{title}') RETURNING id, url, title;")
+    Bookmark.new(result[0]['id'], result[0]['url'], result[0]['title'])
   end
 
 
+  attr_reader :id, :url, :title
 
+  def initialize(id, url, title)
+    @id = id
+    @url = url
+    @title = title
+  end
 
 
   private
@@ -34,8 +40,4 @@ class Bookmark
   def self.is_url?(url)
     url =~ /\A#{URI::regexp(['http', 'https'])}\z/
   end
-
-
-
-
 end

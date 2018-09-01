@@ -8,7 +8,8 @@ feature 'Adding bookmarks' do
     fill_in('url', :with => 'http://www.sky.com')
     fill_in('title', :with => 'Sky')
     click_button("Submit")
-    expect(page).to have_content("http://www.sky.com")
+    
+    expect(page).to have_link("Sky", :href => "http://www.sky.com")
   end
 
 
