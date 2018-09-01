@@ -1,4 +1,4 @@
-Bookmarks Challenge
+Bookmarks Manager
 
 A web app that can store web bookmarks in a database as a collection of URL's. we can save a URL that we found useful and add tags to the web pages we found useful.
 
@@ -28,4 +28,7 @@ users can manage their bookmarks
 
 
 
-built using Behaviour Driven Development (BDD) cycle using Capybara
+built using Behaviour Driven Development (BDD) cycle using Capybara/Ruby/Rspec/Sinatra. application can read and write to and from the database (postgreSQL) and is structured in an MVC style.
+
+
+to launch the program, run bundle install from the command line and then rackup from the terminal.
