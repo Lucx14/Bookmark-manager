@@ -5,7 +5,7 @@ require 'sinatra/flash'
 
 class BookmarkManager < Sinatra::Base
 
-  enable :sessions
+  enable :sessions, :method_override
   register Sinatra::Flash
 
   get '/' do
@@ -24,6 +24,22 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks/add' do
     erb :"bookmarks/add"
+  end
+
+  delete '/bookmarks/:id' do
+    Bookmark.delete(params[:id])
+    redirect '/bookmarks'
+  end
+
+
+  get '/bookmarks/:id/edit' do
+    @bookmark_id = params[:id]
+    erb :'bookmarks/edit'
+  end
+
+  patch '/bookmarks/:id' do
+    Bookmark.update(params[:id], params[:url], params[:title])
+    redirect('/bookmarks')
   end
 
 

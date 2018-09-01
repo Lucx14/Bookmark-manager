@@ -32,4 +32,28 @@ describe Bookmark do
       expect(Bookmark.all).not_to include 'not a real bookmark'
     end
   end
+
+
+  describe ".delete" do
+    it "deletes a bookmark" do
+      bookmark = Bookmark.create("http://www.google.com", "Google")
+      Bookmark.delete(bookmark.id)
+      expect(Bookmark.all.length).to eq 0
+    end
+  end
+
+  describe ".update" do
+    it "updates the bookmark with the given data" do
+      bookmark = Bookmark.create("http://www.makersacademy.com", "Makers Academy")
+      updated_bookmark = Bookmark.update(bookmark.id, "http://www.fakersacademy.com", "Fakers Academy")
+
+      expect(updated_bookmark).to be_a Bookmark
+      expect(updated_bookmark.id).to eq bookmark.id
+      expect(updated_bookmark.title).to eq("Fakers Academy")
+      expect(updated_bookmark.url).to eq("http://www.fakersacademy.com")
+    end
+  end
+
+
+
 end
