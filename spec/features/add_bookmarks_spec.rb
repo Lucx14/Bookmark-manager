@@ -12,5 +12,15 @@ feature 'Adding bookmarks' do
   end
 
 
+  scenario 'The Bookmark must be a valid URL' do
+    visit('/bookmarks/add')
+    fill_in('url', :with => 'not a real bookmark')
+    fill_in('title', :with => 'test')
+    click_button("Submit")
+    expect(page).not_to have_content "not a real bookmark"
+    expect(page).to have_content "You must submit a valid URL."
+  end
+
+
 
 end
