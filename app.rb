@@ -13,7 +13,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks' do
-    "http://www.sky.com"
+    Bookmark.create(params['url'], params['title'])
+    redirect '/bookmarks'
   end
 
   get '/bookmarks/add' do
